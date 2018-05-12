@@ -1,12 +1,14 @@
 #!/bin/bash
+mkdir -p bin
+ln -s $(which python2) bin/python # Because Arch Linux using python3 as default, rather than python2.
 source build/envsetup.sh
-#patch  --no-backup-if-mismatch -p1 -i ok/android_frameworks_base-signature_spoof.patch
-#patch  --no-backup-if-mismatch -p1 -i ok/packages_apps_updater-adjust_url.patch
-#patch  --no-backup-if-mismatch -p1 -i ok/packages_apps_SetupWizard-add_microg_repo.patch
-
-breakfast n7100
+export LC_ALL=C
+export PATH="bin/:$PATH"
 export USE_CCACHE=1
+export ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx10G" # I have a lot of RAM
 ccache -M 50G
-export ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx5G"
+
+breakfast dumpling
+
 croot
-brunch n7100
+brunch dumpling
